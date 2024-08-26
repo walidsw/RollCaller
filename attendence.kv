@@ -1,0 +1,149 @@
+<Button1@Button>
+    font_size: 32
+
+<MyLayout>:
+    do_default_tab: False
+
+    TabbedPanelItem:
+        text: "HOME"        
+        
+
+        BoxLayout:
+            orientation: 'vertical'
+            padding: 200
+            spacing: 100
+            canvas.before:
+                Color:
+                    rgba: 52/255, 73/255, 85/255, 1  # Replace with your desired color (RGB values, alpha)
+                    
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            RoundB:
+                text: '+'
+                font_size: 32
+                on_press: root.add_class()
+
+            RoundB:
+                text: '-'
+                font_size: 60
+                on_press: root.delete_class()
+       
+
+    TabbedPanelItem:
+        text: "CLASS"
+        BoxLayout:
+            canvas.before:
+                Color:
+                    rgba: 52/255, 73/255, 85/255, 1  # Replace with your desired color (RGB values, alpha)
+                    
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            id: cid
+            orientation:'vertical'
+            padding: 100
+            spacing: 50
+
+    TabbedPanelItem:
+        text: "REGISTER"
+        ScrollView:
+            do_scroll_x: False 
+            do_scroll_y: True
+
+
+            GridLayout:
+                canvas.before:
+                    Color:
+                        rgba: 52/255, 73/255, 85/255, 1 
+                        
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+                id: reg
+                cols: 3
+                size_hint: 1, None
+                height: 3760
+                spacing: 10
+                padding: 20
+
+    TabbedPanelItem:
+
+        text: "SUBMIT"
+        GridLayout:
+            cols: 1
+            spacing: 100
+            padding: 180
+            canvas.before:
+                Color:
+                    rgba: 52/255, 73/255, 85/255, 1  # Replace with your desired color (RGB values, alpha)
+                    
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+
+            RoundB:
+                size_hint: 0.7, 0.2
+                id: sb2
+                text: "SUBMIT"
+                font_size: 24
+                on_press: root.final_submit()
+
+            RoundB:
+                size_hint: 0.8, 0.2
+                id: sb3
+                text: "CANCEL"
+                font_size: 24
+                on_press: root.cancel_btn()
+
+            
+
+    TabbedPanelItem:
+        text: "INFO"
+
+        ScrollView:
+            do_scroll_x: False 
+            do_scroll_y: True
+
+            GridLayout:
+                id: jr
+                cols: 1
+                size_hint: 1, None
+                height: 20000
+                canvas.before:
+                    Color:
+                        rgba: 52/255, 73/255, 85/255, 1  # Replace with your desired color (RGB values, alpha)
+                        
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+
+    TabbedPanelItem:
+        text: "ABOUT"
+        BoxLayout:
+            size: root.width, root.height
+            orientation: 'vertical'
+            canvas.before:
+                Color:
+                    rgba: 52/255, 73/255, 85/255, 1  # Replace with your desired color (RGB values, alpha)
+                    
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            Label:
+                font_size: 30
+                text: "Attendence App Authors"
+            Label:
+                font_size: 18
+                text: "Instructor\n--------------\nBarshon Sen\nAssistant Professor\nDept of CSE\nRajshahi University of Engineering & Technology\nEmail:sen.barshon@gmail.com "
+
+            Label:
+                font_size: 18
+                text: "\n\n\nProgrammer\n-------------\nMd Walid Waccub Swadhin\nStudent\nDept of CSE\nRajshahi University of Engineering & Technology\nEmail:waccub@gmail.com"
+            
+            Label:
+                font_size: 30
+                text:"\n\n\n--------------***--------------"
+            Label:
+                font_size: 30
+                text:"Thanks For Using Our App"
