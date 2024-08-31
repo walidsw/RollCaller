@@ -24,7 +24,7 @@ class RoundToggleButton(ToggleButton):
     def __init__(self, **kwargs):
         super(RoundToggleButton, self).__init__(**kwargs)
         self.size_hint = (None, None)
-        self.size = (180, 180)
+        self.size = (150, 150)
         self.background_color = (0, 0, 0, 0)  # Make the default background transparent
         with self.canvas.before:
             #Color(97/255, 64/255, 17/255, 1)#	98, 0, 238
@@ -222,8 +222,22 @@ class MyLayout(TabbedPanel):
             cn = input_name.text 
             cn_start = input_name2.text
             cn_end = input_name3.text
-            if(int(cn_start)>int(cn_end)):
+
+            try:
+                int_va1 = int(cn_start)
+                int_val = int(cn_end)
+            except:
+                self.error_popup("Please enter valid integer!")
                 return
+
+            if(int(cn_start)>int(cn_end)):
+                self.error_popup("Start roll must be greater!")
+                return
+            if not re.match(r'^\w+$', cn):
+                # raise ValueError("Invalid classname. Use only letters, numbers, and underscores.")
+                #Create A popup
+                self.error_popup("Don't use space and special char!")
+                return 
 
             if cn:
                 #this line creates button(classroom) dynamically on id cid
@@ -231,6 +245,8 @@ class MyLayout(TabbedPanel):
                 cat.bind(on_press=self.class_func)
                 self.ids.cid.add_widget(cat)
                 self.create_data_table(cn,cn_start,cn_end)
+                self.ids.reg.clear_widgets()
+                self.ids.jr.clear_widgets()
                 
             popup.dismiss()
 
@@ -244,11 +260,7 @@ class MyLayout(TabbedPanel):
         popup.open()
 
 
-    def create_data_table(self, classname, startroll, endroll):
-        # Ensure the table name is safe
-        if not re.match(r'^\w+$', classname):
-            raise ValueError("Invalid classname. Use only letters, numbers, and underscores.")
-            #Create A popup
+    def create_data_table(self, classname, startroll, endroll):        
         
         # Convert roll numbers to integers
         start_roll = int(startroll)
@@ -372,6 +384,8 @@ class MyLayout(TabbedPanel):
                     con.close()
 
                     self.ids.cid.remove_widget(child)
+                    self.ids.reg.clear_widgets()
+                    self.ids.jr.clear_widgets()
                     break
             popup.dismiss()
 
@@ -399,10 +413,10 @@ class MyLayout(TabbedPanel):
         con.commit()
         con.close()
     
-    def no_class_select_popup(self):
+    def error_popup(self,txt):
         
         content = BoxLayout(orientation='vertical',padding=10,spacing=10)
-        lb = Label(text="No ClassRoom Selected", font_size=20)
+        lb = Label(text=txt, font_size=20)
         content.add_widget(lb)
         popup = Popup(title='Error Notice', content=content, size_hint=(0.8,0.3))
         popup.open()
@@ -415,7 +429,7 @@ class MyLayout(TabbedPanel):
             row = cur.fetchone()
             if row[0]=='EMPTY':
                 print("No Class Selected!")
-                self.no_class_select_popup()
+                self.error_popup("NO  CLASSROOM  SELECTED")
                 return
 
             d = {}
@@ -509,14 +523,14 @@ class MyLayout(TabbedPanel):
         con = sqlite3.connect(database)
         cur = con.cursor()
 
-        print(f"DataBase--{name}----***\n\n")
+        # print(f"DataBase--{name}----***\n\n")
 
         cur.execute(f"SELECT * FROM {name}")
         row = cur.fetchone()
         while row:
-            print(row)
+            # print(row)
             row = cur.fetchone()
-        print("\nEnd Of DataBase")
+        # print("\nEnd Of DataBase")
         cur.close()
         con.commit()
         con.close()
