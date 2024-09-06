@@ -21,37 +21,14 @@ Window.size = (600, 800)
 ###########################################################################
 #               Register Page Button
 class RoundToggleButton(ToggleButton):
+    
     def __init__(self, **kwargs):
         super(RoundToggleButton, self).__init__(**kwargs)
-        self.size_hint = (None, None)
-        self.size = (150, 150)
-        self.background_color = (0, 0, 0, 0)  # Make the default background transparent
-        with self.canvas.before:
-            #Color(97/255, 64/255, 17/255, 1)#	98, 0, 238
-            Color(98/255, 0/255, 238/255, 1)
-            self.ellipse = Ellipse(pos=self.pos, size=self.size)
-        self.bind(pos=self.update_ellipse, size=self.update_ellipse)
-        self.bind(state=self.on_state)
+        self.size_hint = (0.3333, None)
+        height =200 
 
-    def update_ellipse(self, *args):
-        self.ellipse.pos = self.pos
-        self.ellipse.size = self.size
+############################################################################
 
-    def on_state(self, *args):
-        # Change color based on the toggle state
-        if self.state == 'down':
-            self.canvas.before.clear()
-            with self.canvas.before:
-                Color(23/255, 156/255, 19/255, 1)  # Green color when toggled on
-                self.ellipse = Ellipse(pos=self.pos, size=self.size)
- 
-        else:
-            self.canvas.before.clear()
-            with self.canvas.before:
-                Color(98/255, 0/255, 238/255, 1)  # Red color when toggled off
-                self.ellipse = Ellipse(pos=self.pos, size=self.size)
-###########################################################################
-#                     Class Page Button
 
 class RoundToggleButton2(ToggleButton):
     def __init__(self, **kwargs):
@@ -348,7 +325,7 @@ class MyLayout(TabbedPanel):
         while row:
             i = row[0]
             # btn = ToggleButton(text=str(i),font_size=32,size_hint_x=None, size_hint_y=None,height=100, width=180)
-            btn = RoundToggleButton(text=str(i),font_size=32)
+            btn = RoundToggleButton(text=str(i),font_size=20)
             btn.bind(on_press =partial(self.on_toggle_button,roll=i))
             self.ids.reg.add_widget(btn)
             row = cur.fetchone()
