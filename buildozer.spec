@@ -1,7 +1,7 @@
 [app]
 
 # (str) Title of your application
-title = CallRoll
+title = CALL
 
 # (str) Package name
 package.name = sw
@@ -29,7 +29,7 @@ source.include_patterns = images/*.png
 #source.exclude_patterns = license,images/*/*.jpg
 
 # (str) Application versioning (method 1)
-version = 0.4
+version = 1.1
 
 # (str) Application versioning (method 2)
 # version.regex = __version__ = ['"](.*)['"]
