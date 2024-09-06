@@ -2,15 +2,18 @@
     font_size: 32
 
 <MyLayout>:
-    do_default_tab: False
+    do_default_tab:False
+    tab_width: root.width / 6
+    tab_height: 80
+    background_color: (0, 1, 0, 1.0)
 
     TabbedPanelItem:
-        text: "HOME"        
+        text: "HOME"     
         
 
         BoxLayout:
             orientation: 'vertical'
-            padding: 200
+            padding: 150
             spacing: 100
             canvas.before:
                 Color:
@@ -21,14 +24,14 @@
                     size: self.size
             RoundB:
                 text: '+'
-                font_size: 32
+                font_size: 100
                 on_press: root.add_class()
 
             RoundB:
                 text: '-'
-                font_size: 60
+                font_size: 150
                 on_press: root.delete_class()
-       
+
 
     TabbedPanelItem:
         text: "CLASS"
@@ -62,7 +65,7 @@
                         size: self.size
                 id: reg
                 cols: 3
-                size_hint: 1, None
+                size_hint_y: None
                 height: 7000
                 spacing: 50
                 padding: 20
@@ -131,19 +134,19 @@
                     pos: self.pos
                     size: self.size
             Label:
-                font_size: 30
+                font_size: 50
                 text: "Attendence App Authors"
             Label:
-                font_size: 18
+                font_size: 30
                 text: "Instructor\n--------------\nBarshon Sen\nAssistant Professor\nDept of CSE\nRajshahi University of Engineering & Technology\nEmail:sen.barshon@gmail.com "
 
             Label:
-                font_size: 18
+                font_size: 30
                 text: "\n\n\nProgrammer\n-------------\nMd Walid Waccub Swadhin\nStudent\nDept of CSE\nRajshahi University of Engineering & Technology\nEmail:waccub@gmail.com"
             
             Label:
                 font_size: 30
                 text:"\n\n\n--------------***--------------"
             Label:
-                font_size: 30
+                font_size: 50
                 text:"Thanks For Using Our App"
