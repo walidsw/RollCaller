@@ -1,10 +1,10 @@
 [app]
 
 # (str) Title of your application
-title = Call
+title = CallRoll
 
 # (str) Package name
-package.name = sw
+package.name = swadhin
 
 # (str) Package domain (needed for android/ios packaging)
 package.domain = sw.redteam
@@ -29,7 +29,7 @@ source.include_patterns = images/*.png
 #source.exclude_patterns = license,images/*/*.jpg
 
 # (str) Application versioning (method 1)
-version = 1.3
+version = 0.3
 
 # (str) Application versioning (method 2)
 # version.regex = __version__ = ['"](.*)['"]
