@@ -7,6 +7,7 @@ from kivy.uix.textinput import TextInput
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.button import Button
 from kivy.uix.popup import Popup
+from kivy.properties import ListProperty
 import sqlite3
 import re
 from functools import partial
@@ -14,20 +15,7 @@ from kivy.uix.label import Label
 from kivy.graphics import Color, Rectangle, Line, Ellipse, RoundedRectangle
 from kivy.core.window import Window
 
-#Window.size = (600, 800)
 
-
-
-###########################################################################
-#               Register Page Button
-class RoundToggleButton(ToggleButton):
-    
-    def __init__(self, **kwargs):
-        super(RoundToggleButton, self).__init__(**kwargs)
-        self.size_hint = (0.3333, None)
-        height =400 
-
-############################################################################
 
 
 class RoundToggleButton2(ToggleButton):
@@ -53,16 +41,25 @@ class RoundToggleButton2(ToggleButton):
         self.canvas.before.clear()
         if self.state == 'down':
             with self.canvas.before:
-                Color(23/255, 156/255, 19/255, 1)  # Green color when toggled on
+                Color(23/255, 156/255, 19/255, 1) 
                 self.rrect = RoundedRectangle(
                     pos=self.pos, size=self.size, radius=[20] * 4
                 )
         else:
             with self.canvas.before:
-                Color(98/255, 0/255, 238/255, 1)   # Red color when toggled off
+                Color(98/255, 0/255, 238/255, 1)  
                 self.rrect = RoundedRectangle(
                     pos=self.pos, size=self.size, radius=[20] * 4
                 )
+
+
+################################################################################
+class RoundToggleButton(RoundToggleButton2):
+    
+    def __init__(self, **kwargs):
+        super(RoundToggleButton, self).__init__(**kwargs)
+        self.size_hint = (0.3333, None)
+        self.height =200 
 
 ##################################################################################
 #                      submit and cance button
@@ -200,6 +197,16 @@ class MyLayout(TabbedPanel):
             cn_start = input_name2.text
             cn_end = input_name3.text
 
+            if cn=="":
+                self.error_popup("Enter a valid name!")
+                return
+
+            if not re.match(r'^\w+$', cn):
+                # raise ValueError("Invalid classname. Use only letters, numbers, and underscores.")
+                #Create A popup
+                self.error_popup("Don't use space and special char!")
+                return 
+
             try:
                 int_va1 = int(cn_start)
                 int_val = int(cn_end)
@@ -210,11 +217,7 @@ class MyLayout(TabbedPanel):
             if(int(cn_start)>int(cn_end)):
                 self.error_popup("Start roll must be greater!")
                 return
-            if not re.match(r'^\w+$', cn):
-                # raise ValueError("Invalid classname. Use only letters, numbers, and underscores.")
-                #Create A popup
-                self.error_popup("Don't use space and special char!")
-                return 
+            
 
             if cn:
                 #this line creates button(classroom) dynamically on id cid
@@ -393,7 +396,7 @@ class MyLayout(TabbedPanel):
     def error_popup(self,txt):
         
         content = BoxLayout(orientation='vertical',padding=10,spacing=10)
-        lb = Label(text=txt, font_size=20)
+        lb = Label(text=txt, font_size=30)
         content.add_widget(lb)
         popup = Popup(title='Error Notice', content=content, size_hint=(0.8,0.3))
         popup.open()
@@ -404,10 +407,13 @@ class MyLayout(TabbedPanel):
             cur = con.cursor()
             cur.execute("SELECT * FROM current_s_t")
             row = cur.fetchone()
+
+
             if row[0]=='EMPTY':
                 print("No Class Selected!")
                 self.error_popup("NO  CLASSROOM  SELECTED")
                 return
+
 
             d = {}
             cur.execute("SELECT * FROM current_roll")
@@ -491,6 +497,17 @@ class MyLayout(TabbedPanel):
 
         #clear previous data/widgets from details as no class is selected
         self.ids.jr.clear_widgets()
+        self.insert_empty()
+
+    def insert_empty(self):
+        database = "database.db"
+        con = sqlite3.connect(database)
+        cur = con.cursor()
+        qw = "INSERT INTO current_s_t (name) VALUES (?)"
+        cur.execute(qw, ("EMPTY",))
+        cur.close()
+        con.commit()
+        con.close()
 
 
 
@@ -522,7 +539,7 @@ class MyLayout(TabbedPanel):
         row = cur.fetchone()
         tb = row[0]
 
-        lab = CustomLabel(text="ClassRoom: "+tb,font_size=32,bold=True,color=(1, 1, 1, 1),size_hint=(1,None), height=100)
+        lab = CustomLabel(text="CLASS:  "+tb,font_size=40,bold=True,color=(0, 0, 0, 1),size_hint=(1,None), height=100)
         self.ids.jr.add_widget(lab)
 
         # lab = CustomLabel(text="***************",font_size=32,bold=True,color=(1, 1, 1, 1),size_hint=(1,None), height=100)
@@ -536,7 +553,7 @@ class MyLayout(TabbedPanel):
             state = row[1]
 
             pa = "Roll No: "+str(roll)+"    "+"Present Day: "+str(state)
-            lab = CustomLabel(text=pa,font_size=32,bold=False,color=(1, 1, 1, 1),size_hint=(1,None), height=100)
+            lab = CustomLabel(text=pa,font_size=32,bold=True,color=(0,0,0, 1),size_hint=(1,None), height=100)
             self.ids.jr.add_widget(lab)
 
             row = cur.fetchone()
