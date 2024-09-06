@@ -25,7 +25,7 @@ class RoundToggleButton(ToggleButton):
     def __init__(self, **kwargs):
         super(RoundToggleButton, self).__init__(**kwargs)
         self.size_hint = (0.3333, None)
-        height =200 
+        height =400 
 
 ############################################################################
 
@@ -325,7 +325,7 @@ class MyLayout(TabbedPanel):
         while row:
             i = row[0]
             # btn = ToggleButton(text=str(i),font_size=32,size_hint_x=None, size_hint_y=None,height=100, width=180)
-            btn = RoundToggleButton(text=str(i),font_size=20)
+            btn = RoundToggleButton(text=str(i),font_size=28)
             btn.bind(on_press =partial(self.on_toggle_button,roll=i))
             self.ids.reg.add_widget(btn)
             row = cur.fetchone()
