@@ -14,7 +14,7 @@ from kivy.uix.label import Label
 from kivy.graphics import Color, Rectangle, Line, Ellipse, RoundedRectangle
 from kivy.core.window import Window
 
-Window.size = (600, 800)
+#Window.size = (600, 800)
 
 
 
