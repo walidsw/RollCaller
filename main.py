@@ -184,13 +184,13 @@ class MyLayout(TabbedPanel):
     def add_class(self):
         #creating popup content
         content = BoxLayout(orientation='vertical',padding=10,spacing=10)
-        input_name = TextInput(hint_text="Enter ClassRoom Name to Add", multiline=False,size_hint=(1,0.3), font_size=20, halign='center')
+        input_name = TextInput(hint_text="Enter ClassRoom Name to Add", multiline=False,size_hint=(1,0.3), font_size=32, halign='center')
         content.add_widget(input_name)
 
         #start roll, end roll
         content2 = GridLayout(cols=2,padding=10,spacing=20,size_hint=(1,0.33))
-        input_name2 = TextInput(hint_text="Start Roll", multiline=False,size_hint=(0.4,0.3), font_size=20, halign='center')
-        input_name3 = TextInput(hint_text="End Roll", multiline=False,size_hint=(0.4,0.3), font_size=20, halign='center')
+        input_name2 = TextInput(hint_text="Start Roll", multiline=False,size_hint=(0.4,0.3), font_size=32, halign='center')
+        input_name3 = TextInput(hint_text="End Roll", multiline=False,size_hint=(0.4,0.3), font_size=32, halign='center')
         content2.add_widget(input_name2)
         content2.add_widget(input_name3)
         content.add_widget(content2)
@@ -228,7 +228,7 @@ class MyLayout(TabbedPanel):
             popup.dismiss()
 
         #creating submit button
-        sb = Button(text="Submit",font_size=18, size_hint=(1, 0.3))
+        sb = Button(text="Submit",font_size=32, size_hint=(1, 0.3))
         sb.bind(on_press=on_submit)
         content.add_widget(sb)
 
@@ -257,9 +257,9 @@ class MyLayout(TabbedPanel):
             
             # Debugging: Print all rows in the table
             cur.execute(f"SELECT * FROM {classname}")
-            rows = cur.fetchall()
-            for row in rows:
-                print(row)
+            # rows = cur.fetchall()
+            # for row in rows:
+            #     print(row)
         
         except sqlite3.Error as e:
             print(f"Error occurred: {e}")
@@ -342,7 +342,7 @@ class MyLayout(TabbedPanel):
 
     def delete_class(self):
         content = BoxLayout(orientation='vertical', padding=10, spacing=10)
-        input_name = TextInput(hint_text="Enter ClassRoom Name to Delete", size_hint=(1,0.3),font_size=20, multiline=False, halign='center')
+        input_name = TextInput(hint_text="Enter ClassRoom Name to Delete", size_hint=(1,0.3),font_size=32, multiline=False, halign='center')
         content.add_widget(input_name)
 
         def on_delete(instance):
