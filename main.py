@@ -167,7 +167,7 @@ class MyLayout(TabbedPanel):
                 table_name = table[0]
                 if table_name=="current_s_t" or table_name=="current_roll":
                     continue
-                cat = RoundToggleButton2(text=table_name, font_size=24, group="A")
+                cat = RoundToggleButton2(text=table_name, font_size=80, group="A")
                 cat.bind(on_press=self.class_func)
                 self.ids.cid.add_widget(cat)
                 
@@ -218,7 +218,7 @@ class MyLayout(TabbedPanel):
 
             if cn:
                 #this line creates button(classroom) dynamically on id cid
-                cat = RoundToggleButton2(text=cn, font_size=24, group="A")
+                cat = RoundToggleButton2(text=cn, font_size=80, group="A")
                 cat.bind(on_press=self.class_func)
                 self.ids.cid.add_widget(cat)
                 self.create_data_table(cn,cn_start,cn_end)
