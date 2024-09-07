@@ -105,10 +105,27 @@
                 Rectangle:
                     pos: self.pos
                     size: self.size
-            id: cid
-            orientation:'vertical'
-            padding: 100
-            spacing: 50
+
+            orientation: 'vertical'
+
+            BoxLayout:
+                orientation: 'vertical'
+                size_hint: 1, 0.5 
+
+                Image:
+                    source: "images/classrooms.png"           
+
+            BoxLayout:
+                orientation:'vertical'
+                size_hint: 1, 0.6  
+
+                GridLayout:
+                    id: cid
+                    cols: 3
+                    padding: 20
+                    spacing: 20
+                     
+
 
     TabbedPanelItem:
         text: "reg"
@@ -157,32 +174,57 @@
                 width: 5
                 rectangle: self.x, self.y, self.width, self.height
 
-        GridLayout:
-            cols: 1
-            spacing: 100
-            padding: 180
+        BoxLayout: #main
+            orientation:"vertical"
             canvas.before:
                 Color:
-                    # rgba: 52/255, 73/255, 85/255, 1  # Replace with your desired color (RGB values, alpha)
                     rgba: 1, 1, 1, 1
                     
                 Rectangle:
                     pos: self.pos
                     size: self.size
 
-            RoundB:
-                size_hint: 0.7, 0.2
-                id: sb2
-                text: "SUBMIT"
-                font_size: 70
-                on_press: root.final_submit()
 
-            RoundB:
-                size_hint: 0.8, 0.2
-                id: sb3
-                text: "CANCEL"
-                font_size: 70
-                on_press: root.cancel_btn()
+            ##################### first half #####################
+
+            BoxLayout:
+                orientation: "vertical"
+                Image:
+                    source: "images/submit_shark.png"
+
+
+
+                Label:
+                    id: _date
+                    text:""
+                    color: 0, 0, 0, 1
+                    font_size:32
+                    size_hint: 1, 1
+
+
+            ##################### second half #####################
+                
+            
+            BoxLayout:
+                orientation: "horizontal"
+                size_hint: 1, 0.5
+                padding: 20
+                spacing: 20
+                RoundB:
+                    size_hint: 0.5, 0.5
+                    id: sb2
+                    text: "SUBMIT"
+                    font_size: 50
+                    pos_hint: {"center_x":0.5, "center_y": 0.5}
+                    on_press: root.final_submit()
+
+                RoundB:
+                    size_hint: 0.5, 0.5
+                    id: sb3
+                    text: "CANCEL"
+                    font_size: 50
+                    pos_hint: {"center_x":0.5, "center_y": 0.5}
+                    on_press: root.cancel_btn()
 
             
 
