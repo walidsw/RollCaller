@@ -17,6 +17,17 @@ from kivy.core.window import Window
 
 
 
+#Custom Line
+class LineWidget(Widget):
+    def __init__(self, **kwargs):
+        super(LineWidget, self).__init__(**kwargs)
+        with self.canvas:
+            Color(0, 0, 0, 1)
+            self.line = Line(points=[self.x, self.center_y, self.width, self.center_y], width=10)
+        self.bind(pos=self.update_line, size=self.update_line)
+    def update_line(self, *args):
+        self.line.points = [self.x, self.center_y, self.right, self.center_y]
+######################################################################
 
 class RoundToggleButton2(ToggleButton):
     def __init__(self, **kwargs):
@@ -63,6 +74,8 @@ class RoundToggleButton(RoundToggleButton2):
 
 ##################################################################################
 #                      submit and cance button
+
+
 class RoundB(Button):
     def __init__(self, **kwargs):
         super(RoundB, self).__init__(**kwargs)
@@ -70,32 +83,34 @@ class RoundB(Button):
         self.background_color = (0, 0, 0, 0)  # Transparent background
         
         with self.canvas.before:
-            Color(98/255, 0/255, 238/255, 1) 
+            Color(98/255, 0/255, 238/255, 1)  # Initial purple color
             self.rrect = RoundedRectangle(
-                pos=self.pos, size=self.size, radius=[20] * 4
+                pos=self.pos, size=self.size, radius=[self.height / 2] * 4  # More rounded corners
             )
         
+        # Bind to update the shape and handle button press/release
         self.bind(pos=self.update_rrect, size=self.update_rrect)
         self.bind(on_press=self.on_press, on_release=self.on_release)
 
     def update_rrect(self, *args):
         self.rrect.pos = self.pos
         self.rrect.size = self.size
+        self.rrect.radius = [self.height / 2] * 4  # Update to keep rounded corners
 
     def on_press(self, *args):
         self.canvas.before.clear()
         with self.canvas.before:
             Color(23/255, 156/255, 19/255, 1)  # Green color when pressed
             self.rrect = RoundedRectangle(
-                pos=self.pos, size=self.size, radius=[20] * 4
+                pos=self.pos, size=self.size, radius=[self.height / 2] * 4  # Rounded on press
             )
 
     def on_release(self, *args):
         self.canvas.before.clear()
         with self.canvas.before:
-            Color(98/255, 0/255, 238/255, 1)    # Red color when released
+            Color(98/255, 0/255, 238/255, 1)  # Purple color when released
             self.rrect = RoundedRectangle(
-                pos=self.pos, size=self.size, radius=[20] * 4
+                pos=self.pos, size=self.size, radius=[self.height / 2] * 4  # Rounded on release
             )
 ############################################################################################
 
@@ -539,10 +554,14 @@ class MyLayout(TabbedPanel):
         row = cur.fetchone()
         tb = row[0]
 
-        lab = CustomLabel(text="CLASS:  "+tb,font_size=40,bold=True,color=(0, 0, 0, 1),size_hint=(1,None), height=100)
+        lab = Label(text="CLASS:  "+tb,font_size=40,bold=True,color=(0, 0, 0, 1),size_hint=(1,None), height=100)
         self.ids.jr.add_widget(lab)
 
-        # lab = CustomLabel(text="***************",font_size=32,bold=True,color=(1, 1, 1, 1),size_hint=(1,None), height=100)
+        fgtext = "###################################################################################################"
+        lab = Label(text=fgtext,color=(0,0,0, 1), size_hint=(1,None), height=100)
+        self.ids.jr.add_widget(lab)
+        # fgtext = "###################################################################################################"
+        # lab = Label(text=fgtext,color=(0,0,0, 1), size_hint=(1,None), height=100)
         # self.ids.jr.add_widget(lab)
                 
 
@@ -553,8 +572,14 @@ class MyLayout(TabbedPanel):
             state = row[1]
 
             pa = "Roll No: "+str(roll)+"    "+"Present Day: "+str(state)
-            lab = CustomLabel(text=pa,font_size=32,bold=True,color=(0,0,0, 1),size_hint=(1,None), height=100)
+            lab = Label(text=pa,font_size=32,bold=True,color=(0,0,0, 1),size_hint=(1,None), height=100)
             self.ids.jr.add_widget(lab)
+
+            fgtext = "###################################################################################################"
+            
+            lab = Label(text=fgtext,color=(0,0,0, 1), size_hint=(1,None), height=100)
+            self.ids.jr.add_widget(lab)
+
 
             row = cur.fetchone()
 
