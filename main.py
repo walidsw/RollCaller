@@ -14,6 +14,7 @@ from functools import partial
 from kivy.uix.label import Label
 from kivy.graphics import Color, Rectangle, Line, Ellipse, RoundedRectangle
 from kivy.core.window import Window
+from datetime import datetime
 
 
 
@@ -156,6 +157,7 @@ class MyLayout(TabbedPanel):
             
             cur.execute("CREATE TABLE IF NOT EXISTS current_s_t(name text)")
             cur.execute("CREATE TABLE IF NOT EXISTS current_roll(roll INTEGER, status INTEGER)")
+            cur.execute("CREATE TABLE IF NOT EXISTS latest_submit_table(name text, present INTEGER, absent INTEGER, date text)")
             
 
             cur.close()
@@ -177,7 +179,7 @@ class MyLayout(TabbedPanel):
             
             for table in tables:
                 table_name = table[0]
-                if table_name=="current_s_t" or table_name=="current_roll":
+                if table_name=="current_s_t" or table_name=="current_roll" or table_name=="latest_submit_table":
                     continue
                 cat = RoundToggleButton2(text=table_name, font_size=80, group="A")
                 cat.bind(on_press=self.class_func)
@@ -423,6 +425,8 @@ class MyLayout(TabbedPanel):
             cur.execute("SELECT * FROM current_s_t")
             row = cur.fetchone()
 
+            class_name = row[0]
+
 
             if row[0]=='EMPTY':
                 print("No Class Selected!")
@@ -433,11 +437,21 @@ class MyLayout(TabbedPanel):
             d = {}
             cur.execute("SELECT * FROM current_roll")
             row = cur.fetchone()
+            
             while row:
                 # print(f"{row[0]} -- {row[1]}")
                 d[row[0]]=row[1]
                 row = cur.fetchone()
 
+            counter = 0
+            for roll,sta in d.items():
+                if sta==1:
+                    counter+=1
+
+            
+
+            
+            total_st = 0
 
             d2 = {}
             cur.execute("SELECT * FROM current_s_t")
@@ -447,8 +461,11 @@ class MyLayout(TabbedPanel):
             cur.execute(f"SELECT * FROM {table_name}")
             row = cur.fetchone()
             while row:
+                total_st+=1
                 d2[row[0]]=row[1]
                 row = cur.fetchone()
+
+            
 
             
             for k,v in d.items():
@@ -472,6 +489,49 @@ class MyLayout(TabbedPanel):
             #cur.close()
             con.commit()
             #con.close()
+
+
+            #Working --- 
+            
+
+            
+            cur.execute("DELETE FROM latest_submit_table")
+
+            today_date = datetime.today().strftime("%Y-%m-%d")
+            qw = "INSERT INTO latest_submit_table (name,present,absent,date) VALUES (?,?,?,?)"
+            cur.execute(qw, (class_name,counter,total_st-counter,today_date,))
+
+            print(f"Class {class_name} -> Present: {counter} student. Absent: {total_st-counter} Date:{today_date}")
+
+
+            # self.show_latest_submit()
+            ##############################
+
+            # lab = Label(text=today_date, color=(0,0,0, 1), size_hint=(1,None), height=100)
+            # self.ids._date.add_widget(lab)
+
+            # lab = Label(text=class_name, color=(0,0,0, 1), size_hint=(1,None), height=100)
+            # self.ids._cname.add_widget(lab)
+
+            # lab = Label(text=str(counter), color=(0,0,0, 1), size_hint=(1,None), height=100)
+            # self.ids._present.add_widget(lab)
+
+            # lab = Label(text=str(total_st-counter), color=(0,0,0,1), size_hint=(1,None), height=100)
+            # self.ids._absent.add_widget(lab)
+
+            self.ids._date.text = "Date: " + today_date + "\n" + "Class: " + class_name + "\n" + "Present: " + str(counter) + "\n"+"Absent :" + str(total_st-counter)
+            
+            
+
+
+
+
+
+
+
+
+            #############################
+
 
             self.classDetails()
 
@@ -499,6 +559,11 @@ class MyLayout(TabbedPanel):
         for child in self.ids.cid.children:
             if isinstance(child, ToggleButton):
                 child.state = 'normal'
+
+
+    
+
+
 
     def cancel_btn(self):
         #reset the temp files and toggle button
