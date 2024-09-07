@@ -166,9 +166,31 @@ class MyLayout(TabbedPanel):
         except:
             print("Error!! 12")
 
+
+    def table_name_validity_check(self, name):
+        con = sqlite3.connect("database.db")
+        cur = con.cursor()
+        cur.execute("SELECT name FROM sqlite_master WHERE type='table';")
+        tables = cur.fetchall()
+            
+        for table in tables:
+            table_name = table[0]
+            if table_name=="current_s_t" or table_name=="current_roll" or table_name=="latest_submit_table":
+                continue
+            if table_name==name:
+                cur.close()
+                con.close()
+                return -1
+        cur.close()
+        con.close()
+        return 1
+
+
         
 
     def load_saved_classrooms(self):
+        self.ids._scroll.scroll_y = 1
+        self.ids._scroll2.scroll_y = 1
         database = "database.db"
         con = sqlite3.connect(database)
         cur = con.cursor()
@@ -181,7 +203,7 @@ class MyLayout(TabbedPanel):
                 table_name = table[0]
                 if table_name=="current_s_t" or table_name=="current_roll" or table_name=="latest_submit_table":
                     continue
-                cat = RoundToggleButton2(text=table_name, font_size=80, group="A")
+                cat = RoundToggleButton2(text=table_name, font_size=25, group="A")
                 cat.bind(on_press=self.class_func)
                 self.ids.cid.add_widget(cat)
                 
@@ -214,6 +236,12 @@ class MyLayout(TabbedPanel):
             cn_start = input_name2.text
             cn_end = input_name3.text
 
+            ret = self.table_name_validity_check(cn)
+
+            if ret==-1:
+                self.error_popup("Class Already Exist")
+                return
+
             if cn=="":
                 self.error_popup("Enter a valid name!")
                 return
@@ -238,7 +266,7 @@ class MyLayout(TabbedPanel):
 
             if cn:
                 #this line creates button(classroom) dynamically on id cid
-                cat = RoundToggleButton2(text=cn, font_size=80, group="A")
+                cat = RoundToggleButton2(text=cn, font_size=25, group="A")
                 cat.bind(on_press=self.class_func)
                 self.ids.cid.add_widget(cat)
                 self.create_data_table(cn,cn_start,cn_end)
@@ -295,6 +323,9 @@ class MyLayout(TabbedPanel):
         #see datatable current_selected_table to get the selected table name
 
         if instance.state=='down':
+            self.ids._scroll.scroll_y = 1
+            self.ids._scroll2.scroll_y = 1
+
             database = "database.db"
             con = sqlite3.connect(database)
             cur = con.cursor()
@@ -317,6 +348,8 @@ class MyLayout(TabbedPanel):
             #DEBUG
             #self.view_table_details(instance.text)
         else:
+            self.ids._scroll.scroll_y = 1
+            self.ids._scroll2.scroll_y = 1
             database = "database.db"
             con = sqlite3.connect(database)
             cur = con.cursor()
@@ -497,7 +530,13 @@ class MyLayout(TabbedPanel):
             
             cur.execute("DELETE FROM latest_submit_table")
 
-            today_date = datetime.today().strftime("%Y-%m-%d")
+            today = datetime.today()
+            year = today.year
+            month = today.month
+            day = today.day
+
+            today_date = str(day)+"-"+str(month)+"-"+str(year)
+
             qw = "INSERT INTO latest_submit_table (name,present,absent,date) VALUES (?,?,?,?)"
             cur.execute(qw, (class_name,counter,total_st-counter,today_date,))
 
@@ -519,17 +558,8 @@ class MyLayout(TabbedPanel):
             # lab = Label(text=str(total_st-counter), color=(0,0,0,1), size_hint=(1,None), height=100)
             # self.ids._absent.add_widget(lab)
 
-            self.ids._date.text = "Date: " + today_date + "\n" + "Class: " + class_name + "\n" + "Present: " + str(counter) + "\n"+"Absent :" + str(total_st-counter)
+            self.ids._date.text = "Date: " + today_date + "\n\n" + "Class: " + class_name + "\n" + "Present: " + str(counter) + "\n"+"Absent: " + str(total_st-counter)
             
-            
-
-
-
-
-
-
-
-
             #############################
 
 
