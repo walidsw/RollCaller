@@ -12,42 +12,82 @@
     TabbedPanelItem:
         text: "home"     
         background_normal: ''
-        background_color: 118/255, 138/255, 30/255, 1
+        # background_color: 118/255, 138/255, 30/255, 1
+        background_color: 14/255, 107/255, 179/255, 1
+       
 
         canvas.before:
             Color:
-                rgba: 0, 0, 0, 1  # Border color for each tab
+                rgba: 0, 0, 0, 1
             Line:
                 width: 5
                 rectangle: self.x, self.y, self.width, self.height
+
+            
         
 
         BoxLayout:
             orientation: 'vertical'
-            padding: 150
-            spacing: 100
+            
             canvas.before:
                 Color:
-                    rgba: 52/255, 73/255, 85/255, 1  # Replace with your desired color (RGB values, alpha)
+                    rgba: 1, 1, 1, 1
                     
                 Rectangle:
                     pos: self.pos
                     size: self.size
-            RoundB:
-                text: '+'
-                font_size: 100
-                on_press: root.add_class()
 
-            RoundB:
-                text: '-'
-                font_size: 150
-                on_press: root.delete_class()
+            BoxLayout:
+                orientation: "vertical"
+                padding: 10
+                spacing: 50
+                size_hint: 1,0.5
+
+                Image:
+                    source:"images/home_image.jpg"
+                    size_hint: 1, 1
+
+                Image:
+                    source:"images/bottom_image.png"
+                    size_hint: 1, 1
+                
+
+            BoxLayout:
+                orientation: "vertical"
+                padding: 10
+                spacing: 50
+                size_hint: 1,0.5
+                pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                RoundB:
+                    text: '+'
+                    font_size: 100
+                    size_hint: 0.4, 0.4
+                    pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                    on_press: root.add_class()
+
+                RoundB:
+                    text: '-'
+                    size_hint: 0.4, 0.4
+                    font_size: 150
+                    pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                    on_press: root.delete_class()
+
+                Image:
+                    source:"images/fish.png"
+                    size_hint: 1, 1
+
+                
+
+            
+
+            
 
 
     TabbedPanelItem:
         text: "class"
         background_normal: ''
-        background_color: 118/255, 138/255, 30/255, 1
+        # background_color: 118/255, 138/255, 30/255, 1
+        background_color: 14/255, 107/255, 179/255, 1
 
         canvas.before:
             Color:
@@ -59,7 +99,8 @@
         BoxLayout:
             canvas.before:
                 Color:
-                    rgba: 52/255, 73/255, 85/255, 1  # Replace with your desired color (RGB values, alpha)
+                    # rgba: 52/255, 73/255, 85/255, 1  # Replace with your desired color (RGB values, alpha)
+                    rgba: 1, 1, 1, 1
                     
                 Rectangle:
                     pos: self.pos
@@ -72,7 +113,8 @@
     TabbedPanelItem:
         text: "reg"
         background_normal: ''
-        background_color: 118/255, 138/255, 30/255, 1
+        # background_color: 118/255, 138/255, 30/255, 1
+        background_color: 14/255, 107/255, 179/255, 1
 
         canvas.before:
             Color:
@@ -89,7 +131,8 @@
             GridLayout:
                 canvas.before:
                     Color:
-                        rgba: 52/255, 73/255, 85/255, 1 
+                        # rgba: 52/255, 73/255, 85/255, 1 
+                        rgba: 1, 1, 1, 1
                         
                     Rectangle:
                         pos: self.pos
@@ -104,7 +147,9 @@
     TabbedPanelItem:
         text: "sub"
         background_normal: ''
-        background_color: 118/255, 138/255, 30/255, 1
+        # background_color: 118/255, 138/255, 30/255, 1
+        background_color: 14/255, 107/255, 179/255, 1
+
         canvas.before:
             Color:
                 rgba: 0, 0, 0, 1  # Border color for each tab
@@ -118,7 +163,8 @@
             padding: 180
             canvas.before:
                 Color:
-                    rgba: 52/255, 73/255, 85/255, 1  # Replace with your desired color (RGB values, alpha)
+                    # rgba: 52/255, 73/255, 85/255, 1  # Replace with your desired color (RGB values, alpha)
+                    rgba: 1, 1, 1, 1
                     
                 Rectangle:
                     pos: self.pos
@@ -128,14 +174,14 @@
                 size_hint: 0.7, 0.2
                 id: sb2
                 text: "SUBMIT"
-                font_size: 80
+                font_size: 70
                 on_press: root.final_submit()
 
             RoundB:
                 size_hint: 0.8, 0.2
                 id: sb3
                 text: "CANCEL"
-                font_size: 80
+                font_size: 70
                 on_press: root.cancel_btn()
 
             
@@ -143,7 +189,9 @@
     TabbedPanelItem:
         text: "info"
         background_normal: ''
-        background_color: 118/255, 138/255, 30/255, 1
+        # background_color: 118/255, 138/255, 30/255, 1
+        background_color: 14/255, 107/255, 179/255, 1
+
         canvas.before:
             Color:
                 rgba: 0, 0, 0, 1  # Border color for each tab
@@ -154,15 +202,16 @@
         ScrollView:
             do_scroll_x: False 
             do_scroll_y: True
-
+            
             GridLayout:
                 id: jr
                 cols: 1
                 size_hint: 1, None
                 height: 20000
+                spacing: 10
                 canvas.before:
                     Color:
-                        rgba: 52/255, 73/255, 85/255, 1 
+                        rgba: 1, 1, 1, 1 
                         
                     Rectangle:
                         pos: self.pos
@@ -171,7 +220,10 @@
     TabbedPanelItem:
         text: "about"
         background_normal: ''
-        background_color: 118/255, 138/255, 30/255, 1
+        # background_color: 118/255, 138/255, 30/255, 1
+        background_color: 14/255, 107/255, 179/255, 1
+
+
         canvas.before:
             Color:
                 rgba: 0, 0, 0, 1  # Border color for each tab
@@ -184,7 +236,8 @@
             orientation: 'vertical'
             canvas.before:
                 Color:
-                    rgba: 52/255, 73/255, 85/255, 1  # Replace with your desired color (RGB values, alpha)
+                    # rgba: 52/255, 73/255, 85/255, 1  # Replace with your desired color (RGB values, alpha)
+                    rgba: 1, 1, 1, 1
                     
                 Rectangle:
                     pos: self.pos
@@ -192,17 +245,22 @@
             Label:
                 font_size: 32
                 text: "Attendence App Authors"
+                color: 0, 0, 0, 1
             Label:
                 font_size: 18
+                color: 0, 0, 0, 1
                 text: "Instructor\n--------------\nBarshon Sen\nAssistant Professor\nDept of CSE\nRajshahi University of Engineering & Technology\nEmail:sen.barshon@gmail.com "
 
             Label:
                 font_size: 18
+                color: 0, 0, 0, 1
                 text: "\n\n\nProgrammer\n-------------\nMd Walid Waccub Swadhin\nStudent\nDept of CSE\nRajshahi University of Engineering & Technology\nEmail:waccub@gmail.com"
             
             Label:
                 font_size: 18
+                color: 0, 0, 0, 1
                 text:"\n\n\n--------------***--------------"
             Label:
                 font_size: 32
+                color: 0, 0, 0, 1
                 text:"Thanks For Using Our App"
