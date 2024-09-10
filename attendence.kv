@@ -1,5 +1,7 @@
-<Button1@Button>
-    font_size: 32
+
+
+
+    
 
 
 <MyLayout>:
@@ -44,7 +46,7 @@
                 size_hint: 1,0.5
 
                 Image:
-                    source:"images/home_image.png"
+                    source:"images/home_image.jpg"
                     size_hint: 1, 1
 
                 Image:
@@ -113,7 +115,17 @@
                 size_hint: 1, 0.5 
 
                 Image:
-                    source: "images/classrooms.png"           
+                    size_hint_y: 0.8
+                    source: "images/classrooms.png" 
+
+                RoundToggleButton2:
+                    id: _revbutton
+                    text: "Reverse"
+                    size_hint_y: 0.2
+                    size_hint_x: 0.5
+                    pos_hint: {"center_x":0.5}
+                    font_size: 32 
+                    on_press: root.reverse()         
 
             BoxLayout:
                 orientation:'vertical'
@@ -187,7 +199,7 @@
                     size: self.size
 
 
-            ##################### first half ####################
+            ##################### first half #####################
 
             BoxLayout:
                 orientation: "vertical"
