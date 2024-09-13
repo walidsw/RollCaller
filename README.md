@@ -17,13 +17,21 @@ Then you can goto the reg tab to take the attendence.
 
 ![image](https://github.com/user-attachments/assets/38a7b005-facd-4025-8106-a2b7ed03cc5a)
 
+
 after giving the attendence goto the sub tab and press on submit button. This will show you the counter of how many are present in class. 
+
+
 ![image](https://github.com/user-attachments/assets/360a8ceb-8346-4910-ac8f-0c206e4f3af1)
 
 Goto info tab to see the total counter of that class. Here we can see which person is present in class how many days.(counter)
+
+
 ![image](https://github.com/user-attachments/assets/47109161-d022-485b-8fc3-c4a5daafec87)
 
+
 Thank You!
+
+
 ![image](https://github.com/user-attachments/assets/43b27f50-76c8-4f1b-8704-08e73a4574e1)
 
 
