@@ -4,7 +4,7 @@
 title = CALL
 
 # (str) Package name
-package.name = swadhin
+package.name = sw
 
 # (str) Package domain (needed for android/ios packaging)
 package.domain = sw.redteam
