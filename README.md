@@ -15,6 +15,11 @@ After pressing (+) icon you will see the below interface. You can give a class n
 After submit you can goto the class tab and see the class or classes you just created. Click on any class name(clicking on any class makes the button green)
 Then you can goto the reg tab to take the attendence.
 
+![image](https://github.com/user-attachments/assets/7b00d87a-7b1f-4ed3-8392-138c112c3b34)
+
+(If reverse button is pressed then you only count those who are absent in class) After pressing reverse button select a class and then take register then you should take those register who are not present!
+
+
 ![image](https://github.com/user-attachments/assets/38a7b005-facd-4025-8106-a2b7ed03cc5a)
 
 
